@@ -1,0 +1,47 @@
+# IDE
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.python-version
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Coverage
+.coverage
+htmlcov/
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# DuckDB
+duckdb/*.duckdb
+*.duckdb
+
+# Include the demo snapshot
+!sample_data/steam_games_sample.duckdb
+
+# Airflow logs and application logs
+logs/
+*.log
+
+# Streamlit
+streamlit_app/data/*
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/
+
+# Secrets
+.env
+.env.*
+!.env.example
+config/airflow.cfg
