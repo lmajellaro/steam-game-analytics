@@ -249,7 +249,7 @@ Initializes a fresh instance of the project database and creates the associated 
 
 **Execution:** Manual by default (schedule=None). To enable automatic execution, configure a schedule in the DAG definition.
 
-**Important:** Ensure the initialization DAG `steam_analysis_schema_init` has been ran before starting utilizing this DAG.
+**Important:** Ensure the initialization DAG `steam_analysis_schema_init` has been run before triggering this DAG.
 
 Collects daily data from the configured sources and runs the pipeline's ingestion and transformation tasks.
 
