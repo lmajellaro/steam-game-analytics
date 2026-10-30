@@ -355,7 +355,10 @@ def staging_checkpoint_task():
 with DAG(
     dag_id="steam_analysis_schema_pipeline",
     start_date=datetime(2026, 1, 1),
-    schedule="@daily",
+    # Enable the schedule after initializing the live target database
+    # running the initialization DAG steam_analysis_schema_init
+    # schedule="@daily",
+    schedule=None,
     catchup=False,
     max_active_runs=1,  # Prevent overlapping runs of this DAG
     default_args=default_args,
