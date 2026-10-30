@@ -338,26 +338,12 @@ services:
       airflow-init:
         condition: service_completed_successfully
         
-  # streamlit: ## Add Streamlit
-  #   image: python:3.11-slim  # lightweight Python image
-  #   container_name: streamlit_app
-  #   working_dir: /app
-  #   volumes:
-  #    - ./streamlit_app:/app       # folder with your app.py
-  #    - ./duckdb:/app/data      # shared DuckDB file
-  #    - ./scripts:/app/scripts  # grant access to the scripts folder
-  #   ports:
-  #    - "8501:8501"                # Streamlit default port
-  #   command: >
-  #    sh -c "pip install streamlit duckdb pandas && 
-  #            streamlit run steam_games_app.py --server.port 8501 --server.address 0.0.0.0"
-  #   restart: unless-stopped
-
   streamlit: ## Add Streamlit
     build:
       context: .
       dockerfile: Dockerfile.streamlit # Dedicated dockerfile for streamlit specifications
-    container_name: streamlit_app
+    # Use dynamically generated container name
+    #container_name: streamlit_app
     working_dir: /app
     volumes:
      - ./streamlit_app:/app       # folder with your app.py

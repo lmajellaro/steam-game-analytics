@@ -73,7 +73,6 @@ steam-game-analytics/
 │   └── staging/                  # Staging SQL
 ├── streamlit_app/                # Dashboard and pages
 ├── sample_data/                  # Demo database and documentation
-├── notebooks/                    # Exploratory analysis
 ├── docs/                         # Project documentation
 │   └── images/
 ├── duckdb/                       # Local live database (not committed)
@@ -152,7 +151,9 @@ The dashboard uses this database by default, allowing you to explore the visuali
 
 The demo database is a **static snapshot** and does not update automatically.
 
-![Genre Trends](docs/images/genre_trends.png)
+![Genre Trends](docs/images/genre_trends.png)   
+
+The demo database is read-only from the Streamlit container. To run your own ingestion pipeline, initialize and populate the live database first.
 
 ## Switching Between Demo and Live Data
 
@@ -246,16 +247,19 @@ Initializes a fresh instance of the project database and creates the associated 
 
 [Open DAG in Airflow](http://localhost:8080/dags/steam_analysis_schema_pipeline)
 
-**Execution:** Scheduled daily at midnight.
+**Execution:** Manual by default (schedule=None). To enable automatic execution, configure a schedule in the DAG definition.
+
+**Important:** Ensure the initialization DAG `steam_analysis_schema_init` has been ran before starting utilizing this DAG.
 
 Collects daily data from the configured sources and runs the pipeline's ingestion and transformation tasks.
 
 You can also trigger the DAG manually when needed. Monitor its task status and logs in Airflow to check progress or troubleshoot failures.
 
+![steam_analysis_schema_pipeline execution](docs/images/live_dag_execution.png)
+
 ## 🧹 Stopping the Environment
 
 Stop the running services while retaining the containers and volumes:
-
 ```bash
 docker compose stop
 ```
@@ -263,6 +267,11 @@ docker compose stop
 Stop and remove the containers:
 ```bash
 docker compose down
+```
+
+Remove containers, network, and persistent volumes, including Airflow and PostgreSQL data. 
+```bash  
+docker compose down -v
 ```
 
 ## Data Sources
